@@ -1,0 +1,26 @@
+{
+  "name": "vue-first-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
+  },
+  "dependencies": {
+    "appwrite": "^8.0.1",
+    "element-plus": "^2.2.5",
+    "eslint": "8",
+    "eslint-plugin-vue": "8",
+    "vue": "^3.2.37",
+    "vue-router": "^4.0.16",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "unplugin-auto-import": "^0.8.7",
+    "unplugin-vue-components": "^0.19.6",
+    "vite": "^2.9.12"
+  }
+}
