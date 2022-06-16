@@ -5,6 +5,7 @@
       <component :is="slotProps.Component"></component>
     </transition>
   </router-view>
+  <footer><a href="https://github.com/Sevichecc/Find-a-coach-vue3">Github</a></footer>
 </template>
 <script>
 import TheHeader from './components/layout/TheHearder.vue';
@@ -64,5 +65,11 @@ body {
 .router-leave-from {
   opacity: 1;
   transform: translateY(0);
+}
+footer>a {
+  color:#777;
+  display: block;
+  text-align: center;
+  margin: 10px auto;
 }
 </style>
