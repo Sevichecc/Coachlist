@@ -9,11 +9,14 @@
 
 <script>
 import CoachForm from '../../components/coaches/CoachForm.vue';
+import { useCoachesStore } from '../../stores/coaches.js';
+import { mapActions } from 'pinia';
 export default {
   components: { CoachForm },
   methods: {
+    ...mapActions(useCoachesStore, ['registerCoach']),
     saveData(data) {
-      this.$store.dispatch('coaches/registerCoach', data);
+      this.registerCoach(data);
       this.$router.replace('/coaches');
     },
   },

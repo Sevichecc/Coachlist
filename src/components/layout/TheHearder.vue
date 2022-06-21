@@ -17,15 +17,19 @@
 </template>
 
 <script>
+import { useAuthStore } from '../../stores/auth.js';
+import { mapState, mapActions } from 'pinia';
 export default {
   computed: {
+    ...mapState(useAuthStore, ['isAuthenticated']),
     isLoggedIn() {
-      return this.$store.getters.isAuthenticated;
+      return this.isAuthenticated;
     },
   },
   methods: {
+    ...mapActions(useAuthStore, ['logout']),
     logout() {
-      this.$store.dispatch('logout');
+      this.logout();
       this.$router.replace('/coaches');
     },
   },

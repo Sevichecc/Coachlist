@@ -5,19 +5,23 @@
       <component :is="slotProps.Component"></component>
     </transition>
   </router-view>
-  <footer><a href="https://github.com/Sevichecc/Find-a-coach-vue3">Github</a></footer>
+  <footer>
+    <a href="https://github.com/Sevichecc/Find-a-coach-vue3">Github</a>
+  </footer>
 </template>
-<script>
-import TheHeader from './components/layout/TheHearder.vue';
 
+<script>
+import { useAuthStore } from './stores/auth.js';
+import { useRequestsStore } from './stores/requests.js';
+import { useCoachesStore } from './stores/coaches.js';
+import { mapStores } from 'pinia';
+import TheHeader from './components/layout/TheHearder.vue';
 export default {
   components: {
     TheHeader,
   },
   computed: {
-    didAutoLogout() {
-      return this.$store.getters.didAutoLogout;
-    },
+    ...mapStores(useAuthStore, useRequestsStore, useCoachesStore),
   },
   watch: {
     didAutoLogout(cur, old) {
@@ -26,8 +30,8 @@ export default {
       }
     },
   },
-  created() {
-    this.$store.dispatch('tryLogin');
+  beforeMounted() {
+    this.tryLogin();
   },
 };
 </script>
@@ -66,8 +70,8 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-footer>a {
-  color:#777;
+footer > a {
+  color: #777;
   display: block;
   text-align: center;
   margin: 10px auto;

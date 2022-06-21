@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { useAuthStore } from '../../stores/auth.js';
+import { mapActions } from 'pinia';
 export default {
   data() {
     return {
@@ -43,21 +45,14 @@ export default {
   },
   computed: {
     submitButtonCaption() {
-      if (this.mode === 'login') {
-        return 'Login';
-      } else {
-        return 'Signup';
-      }
+      return this.mode === 'login' ? 'Login' : 'Signup';
     },
     switchModeCaption() {
-      if (this.mode === 'login') {
-        return 'Signup Instead';
-      } else {
-        return 'Login Instead';
-      }
+      return this.mode === 'login' ? 'Signup Instead' : 'Login Instead';
     },
   },
   methods: {
+    ...mapActions(useAuthStore, ['login', 'signup']),
     async submitForm() {
       this.formIsValid = true;
       if (this.email == '' || !this.email.includes('@') || this.password < 6) {
@@ -73,9 +68,10 @@ export default {
 
       try {
         if (this.mode === 'login') {
-          await this.$store.dispatch('login', actionPayload);
+          // await this.$store.dispatch('login', actionPayload);
+          await this.login(actionPayload);
         } else {
-          await this.$store.dispatch('signup', actionPayload);
+          await this.signup(actionPayload);
         }
         const redirectUrl = '/' + (this.$route.query.redirect || 'coaches');
         this.$router.replace(redirectUrl);
@@ -87,11 +83,7 @@ export default {
       this.isLoading = false;
     },
     switchAuthMode() {
-      if (this.mode === 'login') {
-        this.mode = 'signup';
-      } else {
-        this.mode = 'login';
-      }
+      return this.mode === 'login' ? 'signup' : 'login';
     },
     handleError() {
       this.error = null;

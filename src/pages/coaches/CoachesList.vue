@@ -44,7 +44,9 @@
 import CoachItem from '../../components/coaches/CoachItem.vue';
 import CoachFilter from '../../components/coaches/CoachFilter.vue';
 import BaseButton from '../../components/ui/BaseButton.vue';
-
+import { useCoachesStore } from '../../stores/coaches.js';
+import { useAuthStore } from '../../stores/auth.js';
+import { mapState, mapStores } from 'pinia';
 export default {
   components: { CoachItem, CoachFilter, BaseButton },
   data() {
@@ -55,15 +57,17 @@ export default {
     };
   },
   computed: {
+    ...mapStores(useCoachesStore),
+    ...mapState(useAuthStore, ['isAuthenticated']),
     isLoggedIn() {
-      return this.$store.getters.isAuthenticated;
+      return this.isAuthenticated;
     },
     isCoach() {
-      return this.$store.getters['coaches/isCoach'];
+      return this.isCoach();
     },
 
     filterCoaches() {
-      const coaches = this.$store.getters['coaches/coaches'];
+      const coaches = this.coaches();
       return coaches.filter((coach) => {
         if (this.activeFilters.frontend && coach.areas.includes('frontend')) {
           return true;
@@ -78,7 +82,7 @@ export default {
       });
     },
     hasCoaches() {
-      return !this.isLoading && this.$store.getters['coaches/hasCoaches'];
+      return !this.isLoading && this.hasCoaches;
     },
   },
   created() {
@@ -91,7 +95,7 @@ export default {
     async loadCoaches(refresh = true) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch('coaches/loadCoaches', {
+        await this.loadCoaches({
           forceRefresh: refresh,
         });
       } catch (error) {

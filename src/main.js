@@ -1,7 +1,8 @@
 import { createApp, defineAsyncComponent } from 'vue';
 import router from './router';
 import App from './App.vue';
-import store from './store/index';
+// import store from './store/index';
+import store from './stores';
 import BaseCard from './components/ui/BaseCard.vue';
 import BaseButton from './components/ui/BaseButton.vue';
 import BaseBadge from './components/ui/BaseBadge.vue';

@@ -30,12 +30,15 @@
 </template>
 
 <script>
+import { useCoachesStore } from '../../stores/coaches.js'
+import { mapState } from 'pinia'
 export default {
   props: ['id'],
   data() {
     return { selectedCoach: null };
   },
   computed: {
+    ...mapState(useCoachesStore, ['coaches']),
     fullName() {
       return this.selectedCoach.firstName + '' + this.selectedCoach.lastName;
     },
@@ -53,7 +56,7 @@ export default {
     },
   },
   created() {
-    this.selectedCoach = this.$store.getters['coaches/coaches'].find(
+    this.selectedCoach = this.coaches.find(
       (coach) => coach.id === this.id
     );
   },

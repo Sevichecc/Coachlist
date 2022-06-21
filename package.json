@@ -1,6 +1,6 @@
 {
-  "name": "vue-first-app",
-  "version": "0.1.0",
+  "name": "fina-a-coach",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -9,10 +9,9 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
   },
   "dependencies": {
-    "appwrite": "^8.0.1",
-    "element-plus": "^2.2.5",
     "eslint": "8",
     "eslint-plugin-vue": "8",
+    "pinia": "^2.0.14",
     "vue": "^3.2.37",
     "vue-router": "^4.0.16",
     "vuex": "^4.0.2"

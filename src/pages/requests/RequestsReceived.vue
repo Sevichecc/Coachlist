@@ -28,7 +28,8 @@
 
 <script>
 import RequestItem from '../../components/requests/RequestItem.vue';
-
+import { useRequestsStore } from '../../stores/requests.js';
+import { mapStores } from 'pinia';
 export default {
   components: { RequestItem },
   data() {
@@ -38,11 +39,12 @@ export default {
     };
   },
   computed: {
+    ...mapStores(useRequestsStore),
     receivedRequests() {
-      return this.$store.getters['requests/requests'];
+      return this.requests();
     },
     hasRequests() {
-      return this.$store.getters['requests/hasRequests'];
+      return this.hasRequests();
     },
   },
   created() {
@@ -52,7 +54,7 @@ export default {
     async loadRequest() {
       this.loadRequest = true;
       try {
-        await this.$store.dispatch('requests/fetchRequests');
+        await this.fetchRequests();
       } catch (error) {
         this.error = error.message || 'Something went wrong';
       }
